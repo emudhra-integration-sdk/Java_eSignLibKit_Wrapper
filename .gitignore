@@ -1,0 +1,32 @@
+# Build output
+build/
+dist/
+
+# Claude Code assistant files (never commit these)
+.claude/
+CLAUDE.md
+
+# NetBeans private project files
+nbproject/private/
+nbproject/build-impl.xml
+
+# Local dependency configuration (contains machine-specific paths)
+local.properties
+
+# Compiled classes
+*.class
+
+# Runtime logs
+logs/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# IDE
+*.iml
+.idea/
+
+# The fat JAR is a build artifact — distribute via GitHub Releases instead
+# Uncomment to also ignore the dist jar:
+# dist/*.jar

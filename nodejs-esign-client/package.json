@@ -1,0 +1,35 @@
+{
+  "name": "emudhra-esign-node-bridge",
+  "version": "2.0.0",
+  "description": "Node.js client for the eMudhra eSign Java bridge JAR. Enables digital document signing via eMudhra eSign gateway from any Node.js application.",
+  "main": "esign-client.js",
+  "scripts": {
+    "start": "node index.js",
+    "test": "node quick-test.js"
+  },
+  "keywords": [
+    "emudhra",
+    "esign",
+    "digital-signature",
+    "aadhaar",
+    "esign-gateway",
+    "java-bridge",
+    "pdf-signing",
+    "dsc"
+  ],
+  "author": "eMudhra Limited",
+  "license": "Apache-2.0",
+  "engines": {
+    "node": ">=12.0.0"
+  },
+  "dependencies": {},
+  "devDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/emudhraltd/esign-node-bridge.git"
+  },
+  "bugs": {
+    "url": "https://github.com/emudhraltd/esign-node-bridge/issues"
+  },
+  "homepage": "https://github.com/emudhraltd/esign-node-bridge#readme"
+}

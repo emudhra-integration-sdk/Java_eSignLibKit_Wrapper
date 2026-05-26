@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- You may freely edit this file. See commented blocks below for -->
+<!-- some examples of how to customize the build. -->
+<!-- (If you delete it and reopen the project it will be recreated.) -->
+<!-- By default, only the Clean and Build commands use this build script. -->
+<!-- Commands such as Run, Debug, and Test only use this build script if -->
+<!-- the Compile on Save feature is turned off for the project. -->
+<!-- You can turn off the Compile on Save (or Deploy on Save) setting -->
+<!-- in the project's Project Properties dialog box.-->
+<project name="newJarEmudhra" default="default" basedir=".">
+    <description>Builds, tests, and runs the project newJarEmudhra.</description>
+
+    <!--
+        Load machine-specific paths from local.properties (never committed to git).
+        Copy local.properties.example → local.properties and fill in your paths.
+    -->
+    <property file="local.properties"/>
+
+    <import file="nbproject/build-impl.xml"/>
+    <!--
+
+    There exist several targets which are by default empty and which can be 
+    used for execution of your tasks. These targets are usually executed 
+    before and after some main targets. They are: 
+
+      -pre-init:                 called before initialization of project properties
+      -post-init:                called after initialization of project properties
+      -pre-compile:              called before javac compilation
+      -post-compile:             called after javac compilation
+      -pre-compile-single:       called before javac compilation of single file
+      -post-compile-single:      called after javac compilation of single file
+      -pre-compile-test:         called before javac compilation of JUnit tests
+      -post-compile-test:        called after javac compilation of JUnit tests
+      -pre-compile-test-single:  called before javac compilation of single JUnit test
+      -post-compile-test-single: called after javac compilation of single JUunit test
+      -pre-jar:                  called before JAR building
+      -post-jar:                 called after JAR building
+      -post-clean:               called after cleaning build products
+
+    (Targets beginning with '-' are not intended to be called on their own.)
+
+    Example of inserting an obfuscator after compilation could look like this:
+
+        <target name="-post-compile">
+            <obfuscate>
+                <fileset dir="${build.classes.dir}"/>
+            </obfuscate>
+        </target>
+
+    For list of available properties check the imported 
+    nbproject/build-impl.xml file. 
+
+
+    Another way to customize the build is by overriding existing main targets.
+    The targets of interest are: 
+
+      -init-macrodef-javac:     defines macro for javac compilation
+      -init-macrodef-junit:     defines macro for junit execution
+      -init-macrodef-debug:     defines macro for class debugging
+      -init-macrodef-java:      defines macro for class execution
+      -do-jar:                  JAR building
+      run:                      execution of project 
+      -javadoc-build:           Javadoc generation
+      test-report:              JUnit report generation
+
+    An example of overriding the target for project execution could look like this:
+
+        <target name="run" depends="newJarEmudhra-impl.jar">
+            <exec dir="bin" executable="launcher.exe">
+                <arg file="${dist.jar}"/>
+            </exec>
+        </target>
+
+    Notice that the overridden target depends on the jar target and not only on
+    the compile target as the regular run target does. Again, for a list of available
+    properties which you can use, check the target you are overriding in the
+    nbproject/build-impl.xml file.
+
+    -->
+
+    <!-- Custom target to create a fat JAR with all dependencies included -->
+    <target name="-post-jar">
+        <echo message="Creating fat JAR with all dependencies..."/>
+
+        <!-- Create a temporary directory for unpacking -->
+        <property name="temp.dir" value="${build.dir}/temp-jar"/>
+        <delete dir="${temp.dir}"/>
+        <mkdir dir="${temp.dir}"/>
+
+        <!-- Unzip all dependency JARs to temp directory -->
+        <unzip src="${file.reference.eSignASPLibrary5_10.jar}" dest="${temp.dir}">
+            <patternset>
+                <exclude name="META-INF/*.SF"/>
+                <exclude name="META-INF/*.DSA"/>
+                <exclude name="META-INF/*.RSA"/>
+                <exclude name="META-INF/*.EC"/>
+                <exclude name="META-INF/MANIFEST.MF"/>
+            </patternset>
+        </unzip>
+        <unzip src="${file.reference.batik-all-1.13.jar}" dest="${temp.dir}">
+            <patternset>
+                <exclude name="META-INF/*.SF"/>
+                <exclude name="META-INF/*.DSA"/>
+                <exclude name="META-INF/*.RSA"/>
+                <exclude name="META-INF/*.EC"/>
+                <exclude name="META-INF/MANIFEST.MF"/>
+            </patternset>
+        </unzip>
+        <unzip src="${file.reference.commons-io-2.4.jar}" dest="${temp.dir}">
+            <patternset>
+                <exclude name="META-INF/*.SF"/>
+                <exclude name="META-INF/*.DSA"/>
+                <exclude name="META-INF/*.RSA"/>
+                <exclude name="META-INF/*.EC"/>
+                <exclude name="META-INF/MANIFEST.MF"/>
+            </patternset>
+        </unzip>
+        <unzip src="${file.reference.org.w3c.dom.svg-1.1.0.jar}" dest="${temp.dir}">
+            <patternset>
+                <exclude name="META-INF/*.SF"/>
+                <exclude name="META-INF/*.DSA"/>
+                <exclude name="META-INF/*.RSA"/>
+                <exclude name="META-INF/*.EC"/>
+                <exclude name="META-INF/MANIFEST.MF"/>
+            </patternset>
+        </unzip>
+        <unzip src="${file.reference.xmlgraphics-commons-2.4.jar}" dest="${temp.dir}">
+            <patternset>
+                <exclude name="META-INF/*.SF"/>
+                <exclude name="META-INF/*.DSA"/>
+                <exclude name="META-INF/*.RSA"/>
+                <exclude name="META-INF/*.EC"/>
+                <exclude name="META-INF/MANIFEST.MF"/>
+            </patternset>
+        </unzip>
+        <unzip src="${file.reference.gson-2.8.5.jar}" dest="${temp.dir}">
+            <patternset>
+                <exclude name="META-INF/*.SF"/>
+                <exclude name="META-INF/*.DSA"/>
+                <exclude name="META-INF/*.RSA"/>
+                <exclude name="META-INF/*.EC"/>
+                <exclude name="META-INF/MANIFEST.MF"/>
+            </patternset>
+        </unzip>
+
+        <!-- Create fat JAR with compiled classes and unpacked dependencies -->
+        <jar destfile="${dist.jar}" duplicate="preserve">
+            <!-- Include compiled classes -->
+            <fileset dir="${build.classes.dir}"/>
+            <!-- Include unpacked dependencies -->
+            <fileset dir="${temp.dir}"/>
+
+            <manifest>
+                <attribute name="Main-Class" value="${main.class}"/>
+                <attribute name="Class-Path" value="."/>
+            </manifest>
+        </jar>
+
+        <!-- Clean up temp directory -->
+        <delete dir="${temp.dir}"/>
+
+        <echo message="Fat JAR created successfully: ${dist.jar}"/>
+    </target>
+</project>
