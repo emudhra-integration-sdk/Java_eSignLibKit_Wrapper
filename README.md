@@ -23,6 +23,7 @@
   - [Phase 1 — Initiate signing](#phase-1--initiate-signing)
   - [Phase 2 — Retrieve signed document](#phase-2--retrieve-signed-document)
   - [Full workflow example](#full-workflow-example)
+- [Python / Django Integration](#python--django-integration)
 - [CLI Usage](#cli-usage)
 - [API Reference](#api-reference)
   - [getGatewayParameter](#getgatewayparameter)
@@ -546,6 +547,22 @@ The Ant `-post-jar` target:
 4. Repacks everything into `dist/newJarEmudhra.jar`
 
 This produces a single self-contained JAR that requires only Java on the target machine.
+
+---
+
+## Python / Django Integration
+
+A fully-featured Django app is included in [`django-esign-client/`](django-esign-client/).  
+It wraps the same JAR via `subprocess` and provides ready-to-use views, a database model, and a download endpoint.
+
+```
+POST  /esign/initiate/                  Start signing (upload PDF or send base64)
+POST  /esign/callback/                  eMudhra gateway posts signed response here
+GET   /esign/status/<transaction_id>/   Poll signing status
+GET   /esign/download/<transaction_id>/ Download signed PDF
+```
+
+See **[django-esign-client/README.md](django-esign-client/README.md)** for full setup and usage docs.
 
 ---
 
