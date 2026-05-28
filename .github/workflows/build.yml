@@ -1,0 +1,53 @@
+name: Build
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Java 8
+        uses: actions/setup-java@v4
+        with:
+          java-version: '8'
+          distribution: 'temurin'
+
+      - name: Install Ant
+        run: sudo apt-get install -y ant
+
+      - name: Download open-source dependencies
+        run: bash scripts/download-deps.sh
+
+      - name: Clone eSign SDK
+        uses: actions/checkout@v4
+        with:
+          repository: emudhra-integration-sdk/java-esign-sdk
+          path: esign-sdk-src
+
+      - name: Build eSign SDK
+        working-directory: esign-sdk-src
+        run: |
+          ant \
+            -Dfile.reference.batik-all-1.13.jar=lib/batik-all-1.13.jar \
+            -Dfile.reference.commons-io-2.4.jar=lib/commons-io-2.4.jar \
+            -Dfile.reference.org.w3c.dom.svg-1.1.0.jar=lib/org.w3c.dom.svg-1.1.0.jar \
+            -Dfile.reference.xmlgraphics-commons-2.4.jar=lib/xmlgraphics-commons-2.4.jar \
+            jar
+
+      - name: Configure local.properties
+        run: |
+          echo "file.reference.eSignASPLibrary5_10.jar=$GITHUB_WORKSPACE/esign-sdk-src/dist/eSignASPLibrary5_5.jar" > local.properties
+
+      - name: Build bridge JAR
+        run: ant jar
+
+      - name: Verify build output
+        run: ls -lh dist/newJarEmudhra.jar

@@ -8,8 +8,24 @@
 
 ---
 
+## Important Notice
+
+> **This repository is a reference implementation published by eMudhra as open source.**
+>
+> eMudhra publishes this source code to demonstrate how hash-based digital signing can be integrated with the eMudhra eSign API. **eMudhra's responsibility is limited to the eSign API and gateway services.** This code is provided as-is for the community to study, build, and integrate into their own applications.
+>
+> - eMudhra does **not** distribute or maintain a pre-built JAR from this repository.
+> - You are expected to **build this code yourself** from source and integrate it into your application.
+> - Any modifications, redistribution, or production use of this code are solely at your own discretion and responsibility, subject to the [Apache 2.0 license](LICENSE).
+> - For API access, gateway URLs, ASP ID, and PFX certificates, contact [eMudhra](https://www.emudhra.com).
+
+[![Build](https://github.com/emudhra-integration-sdk/Java_eSignLibKit_Wrapper/actions/workflows/build.yml/badge.svg)](https://github.com/emudhra-integration-sdk/Java_eSignLibKit_Wrapper/actions/workflows/build.yml)
+
+---
+
 ## Table of Contents
 
+- [Important Notice](#important-notice)
 - [Why this exists](#why-this-exists)
 - [How it works](#how-it-works)
 - [Prerequisites](#prerequisites)
