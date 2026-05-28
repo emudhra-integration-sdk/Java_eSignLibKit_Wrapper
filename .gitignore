@@ -8,7 +8,6 @@ CLAUDE.md
 
 # NetBeans private project files
 nbproject/private/
-nbproject/build-impl.xml
 
 # Local dependency configuration (contains machine-specific paths)
 local.properties
