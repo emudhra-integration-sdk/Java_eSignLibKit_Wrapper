@@ -45,6 +45,7 @@ jobs:
       - name: Configure local.properties
         run: |
           echo "file.reference.eSignASPLibrary5_10.jar=$GITHUB_WORKSPACE/esign-sdk-src/dist/eSignASPLibrary5_5.jar" > local.properties
+          echo "platforms.JDK_1.8_Latest.home=$JAVA_HOME" >> local.properties
 
       - name: Build bridge JAR
         run: ant jar
