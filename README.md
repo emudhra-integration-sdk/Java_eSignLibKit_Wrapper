@@ -23,7 +23,7 @@
   - [Phase 1 — Initiate signing](#phase-1--initiate-signing)
   - [Phase 2 — Retrieve signed document](#phase-2--retrieve-signed-document)
   - [Full workflow example](#full-workflow-example)
-- [Python / Django Integration](#python--django-integration)
+- [Python Integration](#python-integration)
 - [CLI Usage](#cli-usage)
 - [API Reference](#api-reference)
   - [getGatewayParameter](#getgatewayparameter)
@@ -550,19 +550,21 @@ This produces a single self-contained JAR that requires only Java on the target 
 
 ---
 
-## Python / Django Integration
+## Python Integration
 
-A fully-featured Django app is included in [`django-esign-client/`](django-esign-client/).  
-It wraps the same JAR via `subprocess` and provides ready-to-use views, a database model, and a download endpoint.
+A single-file Python wrapper is included in [`python-esign-client/`](python-esign-client/).  
+It mirrors the Node.js client — no web framework required, pure standard library.
 
+```python
+from esign_client import ESignClient
+
+client = ESignClient('/path/to/newJarEmudhra.jar')
+
+result = client.get_gateway_parameter({ 'aspID': '...', 'inputs': [...], ... })
+result = client.get_signed_document({ 'responseXML': '...', 'preSignedTempFile': '...', ... })
 ```
-POST  /esign/initiate/                  Start signing (upload PDF or send base64)
-POST  /esign/callback/                  eMudhra gateway posts signed response here
-GET   /esign/status/<transaction_id>/   Poll signing status
-GET   /esign/download/<transaction_id>/ Download signed PDF
-```
 
-See **[django-esign-client/README.md](django-esign-client/README.md)** for full setup and usage docs.
+See **[python-esign-client/README.md](python-esign-client/README.md)** for the full usage guide.
 
 ---
 
